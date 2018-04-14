@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace EmailValidator\Domain\Port;
 
-use EmailValidator\Domain\EmailValidation;
+use EmailValidator\Domain\Entity\EmailValidation;
 
 interface EmailValidationRepository
 {
@@ -12,11 +12,15 @@ interface EmailValidationRepository
      */
     public function findAll(): array;
 
-    public function find($email): EmailValidation;
+    /**
+     * @return EmailValidation|null
+     */
+    public function find(string $email):? EmailValidation;
+
+    /**
+     * @return EmailValidation|null
+     */
+    public function findOneByEmailByDate(string $email):? EmailValidation;
 
     public function add(EmailValidation $emailValidation): void;
-
-    public function update(EmailValidation $emailValidation): void;
-
-    public function remove(EmailValidation $emailValidation): void;
 }

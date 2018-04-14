@@ -28,6 +28,14 @@ class EmailValidation
         $this->validationDate = new DateTimeImmutable();
     }
 
+    public function equals(self $emailValidation): bool
+    {
+        $result = $this->email == $emailValidation->getEmail() &&
+            $this->validationDate->format('Y-m-d') == $emailValidation->getValidationDate();
+
+        return $result;
+    }
+
     public function getId(): EmailValidationId
     {
         return $this->id;

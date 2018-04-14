@@ -1,10 +1,10 @@
 <?php
+declare(strict_types=1);
 
 namespace Tests\Unit\EmailValidator\Domain;
 
 use EmailValidator\Domain\Entity\EmailValidation;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class EmailValidationTest extends TestCase
 {

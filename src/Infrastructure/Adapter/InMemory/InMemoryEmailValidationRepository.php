@@ -3,33 +3,52 @@ declare(strict_types=1);
 
 namespace EmailValidator\Infrastructure\Adapter\InMemory;
 
-use EmailValidator\Domain\EmailValidation;
+use DateTimeImmutable;
+use EmailValidator\Domain\Entity\EmailValidation;
 use EmailValidator\Domain\Port\EmailValidationRepository;
 
 class InMemoryEmailValidationRepository implements EmailValidationRepository
 {
-    public function findAll(): array
+    /** @var EmailValidation[] */
+    private $emailValidations;
+
+    public function __construct(array $emailValidations)
     {
-        // TODO: Implement findAll() method.
+        $this->emailValidations = $emailValidations;
     }
 
-    public function find($email): EmailValidation
+    public function findAll(): array
+    {
+        return array_map(function ($item) {
+            return clone $item;
+        }, $this->emailValidations);
+    }
+
+    public function find(string $email):? EmailValidation
     {
         // TODO: Implement find() method.
     }
 
+    public function findOneByEmailByDate(string $email):? EmailValidation
+    {
+        $date = new DateTimeImmutable();
+
+        $today = $date->format('Y-m-d');
+
+        $emailValidation = null;
+
+        foreach ($this->emailValidations as $item) {
+            if ($item->getEmail() === $email &&
+                $item->getValidationDate()->format('Y-m-d') === $today) {
+                $emailValidation = $item;
+            }
+        }
+
+        return $emailValidation;
+    }
+
     public function add(EmailValidation $emailValidation): void
     {
-        // TODO: Implement add() method.
-    }
-
-    public function update(EmailValidation $emailValidation): void
-    {
-        // TODO: Implement update() method.
-    }
-
-    public function remove(EmailValidation $emailValidation): void
-    {
-        // TODO: Implement remove() method.
+        $this->emailValidations[] = $emailValidation;
     }
 }
