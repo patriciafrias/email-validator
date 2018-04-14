@@ -5,7 +5,7 @@ namespace Tests\Unit\EmailValidator\Domain;
 
 use EmailValidator\Domain\EmailValidationManager;
 use EmailValidator\Domain\Entity\EmailValidation;
-use EmailValidator\Infrastructure\Adapter\InMemory\InMemoryEmailValidationRepository;
+use EmailValidator\Infrastructure\Adapter\InMemory\InMemoryEmailValidationRepositoryAdapter;
 use Tests\TestCase;
 
 class EmailValidationManagerTest extends TestCase
@@ -22,7 +22,7 @@ class EmailValidationManagerTest extends TestCase
         parent::setUp();
 
         $this->emailValidationManager = new EmailValidationManager(
-            new InMemoryEmailValidationRepository([])
+            new InMemoryEmailValidationRepositoryAdapter([])
         );
     }
 

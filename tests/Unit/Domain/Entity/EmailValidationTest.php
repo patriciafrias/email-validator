@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Unit\EmailValidator\Domain;
+namespace Tests\Unit\EmailValidator\Domain\Entity;
 
 use EmailValidator\Domain\Entity\EmailValidation;
 use Tests\TestCase;

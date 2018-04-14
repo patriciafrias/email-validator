@@ -3,17 +3,23 @@ declare(strict_types=1);
 
 namespace EmailValidator\Infrastructure\Adapter\InMemory;
 
+use function array_key_exists;
 use DateTimeImmutable;
 use EmailValidator\Domain\Entity\EmailValidation;
-use EmailValidator\Domain\Port\EmailValidationRepository;
+use EmailValidator\Domain\Port\EmailValidationRepositoryInterface;
 
-class InMemoryEmailValidationRepository implements EmailValidationRepository
+class InMemoryEmailValidationRepository implements EmailValidationRepositoryInterface
 {
     /** @var EmailValidation[] */
     private $emailValidations;
 
     public function __construct(array $emailValidations)
     {
+        foreach ($emailValidations as $emailValidation) {
+            $key = $emailValidation->getEmail() . ':'. $emailValidation->getValidationDate()->format('Y-m-d');
+            $this->emailValidations[$key] = $emailValidation;
+        }
+
         $this->emailValidations = $emailValidations;
     }
 
@@ -33,18 +39,13 @@ class InMemoryEmailValidationRepository implements EmailValidationRepository
     {
         $date = new DateTimeImmutable();
 
-        $today = $date->format('Y-m-d');
+        $key = $email . ':'. $date->format('Y-m-d');
 
-        $emailValidation = null;
-
-        foreach ($this->emailValidations as $item) {
-            if ($item->getEmail() === $email &&
-                $item->getValidationDate()->format('Y-m-d') === $today) {
-                $emailValidation = $item;
-            }
+        if (array_key_exists($key, $this->emailValidations)) {
+            return $this->emailValidations[$key];
         }
 
-        return $emailValidation;
+        return null;
     }
 
     public function add(EmailValidation $emailValidation): void
