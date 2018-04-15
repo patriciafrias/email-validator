@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\EmailValidator\Domain;
 
+use function array_pop;
 use EmailValidator\Domain\EmailValidationManager;
 use EmailValidator\Domain\Entity\EmailValidation;
 use EmailValidator\Infrastructure\Adapter\InMemory\InMemoryEmailValidationRepositoryAdapter;
@@ -65,7 +66,12 @@ class EmailValidationManagerTest extends TestCase
         $this->emailValidationManager->addEmailValidation($newEmail1);
         $this->emailValidationManager->addEmailValidation($newEmail2);
 
-        $this->assertCount(2, $this->emailValidationManager->getEmailValidations());
+        $report = $this->emailValidationManager->getEmailValidations();
+        $this->assertCount(1, $report);
+
+        $firstDay = array_pop($report);
+        $this->assertEquals(1, $firstDay['valid_emails']);
+        $this->assertEquals(1, $firstDay['invalid_emails']);
     }
 
     /**
