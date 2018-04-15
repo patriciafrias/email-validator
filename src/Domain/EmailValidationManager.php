@@ -5,17 +5,16 @@ namespace EmailValidator\Domain;
 
 use EmailValidator\Domain\Entity\EmailValidation;
 use EmailValidator\Domain\Exception\EmailValidationAlreadyExistsException;
-use EmailValidator\Domain\Port\EmailValidationRepository;
-use function is_null;
+use EmailValidator\Domain\Port\EmailValidationRepositoryInterface;
 
 class EmailValidationManager
 {
-    /** @var EmailValidationRepository */
-    private $validationRepository;
+    /** @var EmailValidationRepositoryInterface */
+    private $emailValidationRepository;
 
-    public function __construct(EmailValidationRepository $validationRepository)
+    public function __construct(EmailValidationRepositoryInterface $emailValidationRepository)
     {
-        $this->validationRepository = $validationRepository;
+        $this->emailValidationRepository = $emailValidationRepository;
     }
 
     /**
@@ -23,13 +22,13 @@ class EmailValidationManager
      */
     public function addEmailValidation(EmailValidation $emailValidation): void
     {
-        $storedEmailValidation = $this->getEmailValidationByEmailByDate($emailValidation->getEmail());
+        $storedEmailValidation = $this->emailValidationRepository->findOneByEmailAndDate($emailValidation->getEmail());
 
         if (!is_null($storedEmailValidation)) {
             throw new EmailValidationAlreadyExistsException();
         }
 
-        $this->validationRepository->add($emailValidation);
+        $this->emailValidationRepository->add($emailValidation);
     }
 
     /**
@@ -37,16 +36,6 @@ class EmailValidationManager
      */
     public function getEmailValidations(): array
     {
-        return $this->validationRepository->findAll();
-    }
-
-    /**
-     * @return EmailValidation|null
-     */
-    private function getEmailValidationByEmailByDate(string $email):? EmailValidation
-    {
-        $emailValidation = $this->validationRepository->findOneByEmailByDate($email);
-
-        return $emailValidation;
+        return $this->emailValidationRepository->getReport();
     }
 }

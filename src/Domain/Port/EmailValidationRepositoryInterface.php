@@ -5,7 +5,7 @@ namespace EmailValidator\Domain\Port;
 
 use EmailValidator\Domain\Entity\EmailValidation;
 
-interface EmailValidationRepository
+interface EmailValidationRepositoryInterface
 {
     /**
      * @return EmailValidation[]
@@ -15,12 +15,9 @@ interface EmailValidationRepository
     /**
      * @return EmailValidation|null
      */
-    public function find(string $email):? EmailValidation;
+    public function findOneByEmailAndDate(string $email):? EmailValidation;
 
-    /**
-     * @return EmailValidation|null
-     */
-    public function findOneByEmailByDate(string $email):? EmailValidation;
+    public function getReport(): array;
 
     public function add(EmailValidation $emailValidation): void;
 }

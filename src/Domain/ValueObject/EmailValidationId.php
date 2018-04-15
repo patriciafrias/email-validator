@@ -10,7 +10,7 @@ final class EmailValidationId
     /** @var string */
     private $value;
 
-    private function __construct(string $value = null)
+    public function __construct(string $value = null)
     {
         if (!is_null($value)) {
             $this->value = Uuid::fromString($value)->toString();
