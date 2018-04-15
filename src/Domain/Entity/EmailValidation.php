@@ -18,20 +18,20 @@ class EmailValidation
     private $isValidEmail;
 
     /** @var DateTimeImmutable */
-    private $validationDate;
+    private $validatedTimestamp;
 
     public function __construct(string $email)
     {
         $this->id = EmailValidationId::create();
         $this->email = $email;
         $this->validateEmail($email);
-        $this->validationDate = new DateTimeImmutable();
+        $this->validatedTimestamp = new DateTimeImmutable();
     }
 
     public function equals(self $emailValidation): bool
     {
         $result = $this->email == $emailValidation->getEmail() &&
-            $this->validationDate->format('Y-m-d') == $emailValidation->getValidationDate();
+            $this->validatedTimestamp->getTimestamp() == $emailValidation->getValidatedTimestamp()->getTimestamp();
 
         return $result;
     }
@@ -51,9 +51,9 @@ class EmailValidation
         return $this->isValidEmail;
     }
 
-    public function getValidationDate(): DateTimeImmutable
+    public function getValidatedTimestamp(): DateTimeImmutable
     {
-        return $this->validationDate;
+        return $this->validatedTimestamp;
     }
 
     private function validateEmail(string $email)
