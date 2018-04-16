@@ -1,13 +1,16 @@
-## README
-
 <p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
 <p align="center">
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
 </p>
 
-Assignment for ResponseConcepts by Patricia Frías
+## Email Validator 
 
-## Architecture 
+### Architecture 
+
+
+![Image](http://alistair.cockburn.us/get/2301)
+
+See http://alistair.cockburn.us/Hexagonal+architecture
 
 - This solution implements Hexagonal Architecture (Ports & Adapters), that is based on having 
 two main layers, inside and outside.
@@ -27,7 +30,7 @@ two main layers, inside and outside.
     - php-cli and 
     - php-fpm
 
-## Installation
+### Installation
 
 - docker-compose up
        
@@ -36,7 +39,7 @@ two main layers, inside and outside.
 - Generate DB
     docker-compose run cli php artisan doctrine:schema:create
     
-## Testing
+### Testing
 
 - docker-compose up
     
@@ -44,7 +47,7 @@ two main layers, inside and outside.
 
 - Tests are already providers with Doctrine fixtures which are loaded before each test method.
     
-## Usage
+### Usage
 
 - docker-compose up
     
@@ -54,15 +57,12 @@ two main layers, inside and outside.
     http://email-validator.local or localhost
     
 - Rest Api examples
-    http://email-validator.local/api/validate/email/myvalidemail@myvalidemail.com  
+
+    - http://email-validator.local/api/validate/email/myvalidemail@myvalidemail.com  <br />
         response: 
-            {
-                "is_valid": true
-            }
+            { "is_valid": true }
            
-    http://email-validator.local/api/validate/email/myinvalidemail myinvalidemail.com
+    - http://email-validator.local/api/validate/email/myinvalidemailmyinvalidemail.com <br />
         response
-            {
-                "is_valid": false
-            }
+            { "is_valid": false }
     
