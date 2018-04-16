@@ -20,11 +20,9 @@
             height: 100vh;
             margin: 0;
         }
-
         .content {
             text-align: center;
         }
-
         .links > a {
             color: #636b6f;
             padding: 0 25px;
@@ -34,18 +32,35 @@
             text-decoration: none;
             text-transform: uppercase;
         }
+        .content table {
+            border-collapse: collapse;
+        }
+        .content td, .content th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        .content th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #4CAF50;
+            color: white;
+        }
+        .content tr:hover {background-color: #ddd;}
+        .content tr:nth-child(even){background-color: #f2f2f2;}
     </style>
 </head>
 <body>
     <div class="container">
         <div class="content">
-            <table class="table table-striped">
+            <h1>Email Validator Report</h1>
+            <table align="center">
                 <thead>
                 <tr>
                     <th>Date</th>
                     <th>Valid Emails</th>
                     <th>Invalid Emails</th>
-                    <th colspan="2">Total Emails</th>
+                    <th>Total Emails</th>
                 </tr>
                 </thead>
                 <tbody>
