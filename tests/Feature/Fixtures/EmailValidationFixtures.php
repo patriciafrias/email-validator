@@ -16,9 +16,14 @@ class EmailValidationFixtures implements FixtureInterface
     {
         $emailValidationValid = new EmailValidation('valid@email.com');
         $emailValidationInvalid = new EmailValidation('invalid email com');
+        $emailValidationValid2 = new EmailValidation('valid2@email.com');
+        $emailValidationInvalid2 = new EmailValidation('invalid email2 com');
 
         $manager->persist($emailValidationValid);
         $manager->persist($emailValidationInvalid);
+        $manager->persist($emailValidationValid2);
+        $manager->persist($emailValidationInvalid2);
+
         $manager->flush();
     }
 }
