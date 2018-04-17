@@ -33,7 +33,7 @@ our Domain code, which is according with DDD, the most important thing on softwa
    
 ### Installation
 
-- To be able to run this application you need to install php, mysql, composer and apache in your environment.
+- To be able to run this application you need to install php7.1, mysql 5.7, composer and apache2 in your environment.
 
 - Configure a new vHost
     - Add a new vHost
