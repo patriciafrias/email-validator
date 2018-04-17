@@ -5,6 +5,7 @@
 
 ## Email Validator 
 
+
 ### Architecture 
 
 
@@ -19,10 +20,16 @@ two main layers, inside and outside.
     - Into the outside layer I have all code related to infrastructure (framework, DB layer, etc.), and it is covered 
       by Integration Feature tests. 
 - The Ports & Adapters approach allows me to interact with the Domain only by an implementation (Adapter) of a 
-    Interface (Port) defined within the Domain layer.
+Interface (Port) defined within the Domain layer.
      
-- Using Doctrine and InMemory adapters within the Infrastructure layer help me to decouple the Domain from the outside world. 
+- Using Doctrine and InMemory adapters within the Infrastructure layer help me to decouple the Domain from the outside 
+world.
 
+- For an small application like this one, other approaches are good, but I want to show you how I can model/build an 
+scalable application, which Domain core is decoupled from frameworks, or any tool. I use Laravel, Doctrine for instance, 
+but if in the future we'll need to move to another ORM or Framework. Then, we'll be able to do that without changing 
+our Domain code, which is according with DDD, the most important thing on software development. 
+   
 - To deliver my solution I'm using a simple Docker setup based on five containers orchestrated by docker-compose.
     - web server
     - composer
@@ -32,32 +39,56 @@ two main layers, inside and outside.
 
 ### Installation
 
-- docker-compose up
-       
-- docker-compose run composer install
+1. Launch all containers
+````
+docker-compose up
+````
+
+2. Install dependencies
+````      
+docker-compose run composer install
+````
+
+3. Set permissions
+````
+sudo chown -R $USER: .
+````
     
-- Generate DB
-    docker-compose run cli php artisan doctrine:schema:create
+4. Generate DB
+````
+docker-compose run cli php artisan doctrine:schema:create
+````
     
 ### Testing
 
-- docker-compose up
-    
-- docker-compose run cli vendor/bin/phpunit tests
+1. Launch all containers (skip this step if you already launched it)
+````
+docker-compose up
+````
+
+2. Run Unit tests
+````    
+docker-compose run cli vendor/bin/phpunit tests
+````
 
 - Tests are already providers with Doctrine fixtures which are loaded before each test method.
     
 ### Usage
 
-- docker-compose up
+1. Launch all containers (skip this step if you already launched it)
+````
+docker-compose up
+````
     
-- Add http://email-validator.local to /etc/hosts (can also be accessed with localhost)
+2. Add http://email-validator.local to /etc/hosts (can also be accessed with localhost)
     
-- Browser
-    http://email-validator.local or localhost
-    
-- Rest Api examples
 
+3. Browser
+    - http://email-validator.local 
+    or 
+    - localhost
+    
+4. Api examples
     - http://email-validator.local/api/validate/email/myvalidemail@myvalidemail.com  <br />
         response: 
             { "is_valid": true }
