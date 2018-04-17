@@ -5,6 +5,7 @@
 
 ## Email Validator 
 
+**This a non dockerized** 
 
 ### Architecture 
 
@@ -30,70 +31,44 @@ scalable application, which Domain core is decoupled from frameworks, or any too
 but if in the future we'll need to move to another ORM or Framework. Then, we'll be able to do that without changing 
 our Domain code, which is according with DDD, the most important thing on software development. 
    
-- To deliver my solution I'm using a simple Docker setup based on five containers orchestrated by docker-compose.
-    - web server
-    - composer
-    - mysql
-    - php-cli and 
-    - php-fpm
-
 ### Installation
 
-1. Launch all containers
-````
-docker-compose up
-````
+- To be able to run this application you need to install php, mysql, composer and apache in your environment.
 
-2. Install dependencies
-````      
-docker-compose run composer install
-````
+- Configure a new vHost
+    - Add a new vHost
+    - Add the URL to /etc/hosts
+        127.0.0.1 http://email-validator.local/
 
-3. Set permissions
-````
-sudo chown -R $USER: .
-````
-    
-4. Generate DB
-````
-docker-compose run cli php artisan doctrine:schema:create
-````
-    
-### Testing
+- Create a new Database by CLI or your favorite tool
+    I use "email-validator"
 
-1. Launch all containers (skip this step if you already launched it)
-````
-docker-compose up
-````
+- Create DB Schema
+    php artisan doctrine:schema:create
 
-2. Run Unit tests
-````    
-docker-compose run cli vendor/bin/phpunit tests
-````
+- Copy env.example to .env and update it with your local settings. Example:  
+    DB_CONNECTION=mysql
+    DB_HOST=127.0.0.1
+    DB_PORT=3306
+    DB_DATABASE=email-validator
+    DB_USERNAME=root
+    DB_PASSWORD=root-password
 
-- Tests are already providers with Doctrine fixtures which are loaded before each test method.
+- Install dependencies
+    composer install
+
+- Run the all tests
+    vendor/bin/phpunit tests 
+    when you run the tests, 4 records (fixtures) will be loaded to the Database
     
 ### Usage
 
-1. Launch all containers (skip this step if you already launched it)
-````
-docker-compose up
-````
+###### Browser:
+    http://email-validator.local 
     
-2. Add http://email-validator.local to /etc/hosts (can also be accessed with localhost)
-    
-
-3. Browser
-    - http://email-validator.local 
-    or 
-    - localhost
-    
-4. Api examples
-    - http://email-validator.local/api/validate/email/myvalidemail@myvalidemail.com  <br />
-        response: 
-            { "is_valid": true }
-           
+###### Api examples: 
+    - http://email-validator.local/api/validate/email/myvalidemail@myvalidemail.com <br />
+        response: { "is_valid": true }           
     - http://email-validator.local/api/validate/email/myinvalidemailmyinvalidemail.com <br />
-        response
-            { "is_valid": false }
+        response { "is_valid": false }
     
