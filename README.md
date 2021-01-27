@@ -1,4 +1,4 @@
-<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
+``````````<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
 <p align="center">
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
 </p>
@@ -9,7 +9,7 @@
 ### Architecture 
 
 
-![Image](http://alistair.cockburn.us/get/2301)
+![Image](https://netflixtechblog.com/ready-for-changes-with-hexagonal-architecture-b315ec967749)
 
 See http://alistair.cockburn.us/Hexagonal+architecture
 
