@@ -3,7 +3,6 @@
 
 ### Architecture 
 
-
 ![Image](https://netflixtechblog.com/ready-for-changes-with-hexagonal-architecture-b315ec967749)
 
 See http://alistair.cockburn.us/Hexagonal+architecture
