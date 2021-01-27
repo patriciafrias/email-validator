@@ -3,8 +3,7 @@
 
 ### Architecture 
 
-
-![Image](https://netflixtechblog.com/ready-for-changes-with-hexagonal-architecture-b315ec967749)
+![Image](https://raw.githubusercontent.com/ivanpaulovich/acerola/master/docs/hexagonal-arhcitecture-alistair-cockburn.gif)
 
 See http://alistair.cockburn.us/Hexagonal+architecture
 
