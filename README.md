@@ -1,4 +1,4 @@
-## Email Validator 
+## Email Validator implementing Hexagonal Architecture
 
 
 ### Architecture 
